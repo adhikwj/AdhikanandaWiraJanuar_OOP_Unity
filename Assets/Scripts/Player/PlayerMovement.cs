@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.velocity = moveVelocity;
+        MoveBound();
     }
 
     public Vector2 GetFriction()
@@ -62,7 +63,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveBound()
     {
+        // Get the camera instance
+        Camera mainCamera = Camera.main;
 
+        // Convert the ship's position to viewport coordinates (values between 0 and 1)
+        Vector3 viewportPos = mainCamera.WorldToViewportPoint(transform.position);
+
+        // Clamp the viewport position so the ship stays within bounds (0 to 1 for x and y)
+        viewportPos.x = Mathf.Clamp(viewportPos.x, 0.025f, 0.975f);
+        viewportPos.y = Mathf.Clamp(viewportPos.y, -0.01f, 0.88f);
+
+        // Convert back to world position
+        transform.position = mainCamera.ViewportToWorldPoint(viewportPos);
     }
 
     public bool IsMoving()
