@@ -4,86 +4,112 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 {
-    [SerializeField] private Weapon weaponHolder; // The weapon the spaceship currently holds
-    private Weapon weapon; // Reference to the weapon being picked up
+    [SerializeField] Weapon weaponHolder;
+
+    Weapon weapon;
 
     void Awake()
     {
-        weapon = weaponHolder;
+        if (weaponHolder != null)
+            weapon = Instantiate(weaponHolder);
+        else{
+            Debug.Log("no weapon holder");
+        }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        if (weapon != null)
-        {
-            TurnVisual(false, weapon); // Disable visuals initially
+        if (weapon == null){
+            Debug.Log("weap Null");
+            return;
         }
+            
+
+        TurnVisual(false);
+
+        weapon.enabled = false;
+        weapon.transform.SetParent(transform, false);
+        weapon.transform.localPosition = transform.position;
+
+        weapon.parentTransform = transform;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if(weapon == null){
+            Debug.Log("no Weap");
+        }
+        else if(!other.gameObject.CompareTag("Player")){
+            Debug.Log("Not A player");
+        }
+        // Trigger itu bisa ke semua objek, jadi harus cari si Player
+        if (weapon != null && other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Memasuki Objek Trigger");
+            Weapon playerWeapon = other.gameObject.GetComponentInChildren<Weapon>();
 
-            // Check if player already has a weapon
-            if (weaponHolder != null)
+            if (playerWeapon != null)
             {
-                // Detach the old weapon (if needed, drop or remove from scene)
-                weaponHolder.transform.SetParent(null);
-                TurnVisual(false, weaponHolder);
+                PickupHandler(true);
+                playerWeapon.transform.SetParent(playerWeapon.parentTransform);
+                playerWeapon.transform.localScale = new(2, 2);
+                playerWeapon.transform.localPosition = new(0, 0);
+
+                TurnVisual(false, playerWeapon);
             }
 
-            // Set the new weapon as the player's weapon
-            weaponHolder = weapon;
-            
-            // Attach the new weapon to the player
-            weaponHolder.transform.SetParent(other.transform);
-            weaponHolder.transform.localPosition = Vector3.zero;
+            weapon.enabled = true;
+            weapon.transform.SetParent(other.transform, false);
 
-            // Enable all components of the new weapon (visual feedback)
-            TurnVisual(true, weaponHolder);
+            TurnVisual(true);
+            PickupHandler(false);
+
+            weapon.transform.localPosition = new(0.0f, 0.0f);
+            Player player = other.GetComponent<Player>();
+            if (player != null){
+                player.SwitchWeapon(weapon, this);  // Pass the new weapon and this WeaponPickup instance
+            }
+        }
+        else{
+            Debug.Log("no reference");
         }
     }
 
-    // Method to handle visual feedback for weapon pickup
     void TurnVisual(bool on)
     {
-        if (weapon != null)
+        if (on)
         {
-            foreach (Component component in weapon.GetComponents<Component>())
-            {
-                if (component is Renderer renderer)
-                {
-                    renderer.enabled = on; // Enable or disable renderers
-                }
-                else if (component is Collider2D collider)
-                {
-                    collider.enabled = on; // Enable or disable colliders
-                }
-                // Add more conditions if you have other components to enable/disable
-            }
+            weapon.GetComponent<SpriteRenderer>().enabled = true;
+            weapon.GetComponent<Animator>().enabled = true;
+            weapon.GetComponent<Weapon>().enabled = true;
         }
+        else
+        {
+            weapon.GetComponent<SpriteRenderer>().enabled = false;
+            weapon.GetComponent<Animator>().enabled = false;
+            weapon.GetComponent<Weapon>().enabled = false;
+        }
+
     }
 
-    // Overloaded method to handle visual feedback with weapon parameter
     void TurnVisual(bool on, Weapon weapon)
     {
-        if (weapon != null)
+        if (on)
         {
-            foreach (Component component in weapon.GetComponents<Component>())
-            {
-                if (component is Renderer renderer)
-                {
-                    renderer.enabled = on;
-                }
-                else if (component is Collider2D collider)
-                {
-                    collider.enabled = on;
-                }
-                // Add more conditions if you have other components to enable/disable
-            }
+            weapon.GetComponent<SpriteRenderer>().enabled = true;
+            weapon.GetComponent<Animator>().enabled = true;
+            weapon.GetComponent<Weapon>().enabled = true;
         }
+        else
+        {
+            weapon.GetComponent<SpriteRenderer>().enabled = false;
+            weapon.GetComponent<Animator>().enabled = false;
+            weapon.GetComponent<Weapon>().enabled = false;
+        }
+
     }
+
+    public void PickupHandler(bool state){
+        gameObject.SetActive(state);
+    }
+
 }
