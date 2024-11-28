@@ -25,6 +25,7 @@ public class Portal : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = true;
             GetComponent<Collider2D>().enabled = true;
             transform.position = Vector2.Lerp(transform.position, newPosition, speed * Time.deltaTime);
+            transform.Rotate(Vector3.forward, rotateSpeed);
         }
         else
         {

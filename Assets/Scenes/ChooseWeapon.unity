@@ -384,7 +384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &218419994
 Transform:
   m_ObjectHideFlags: 0
@@ -616,7 +616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &375776379
 Transform:
   m_ObjectHideFlags: 0
@@ -782,7 +782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &468491236
 Transform:
   m_ObjectHideFlags: 0
@@ -1503,7 +1503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.15
-  rotateSpeed: 5
+  rotateSpeed: 0.07
 --- !u!61 &1679752674
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1547,7 +1547,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.38, y: 0.32999998}
+  m_Size: {x: 0.4, y: 0.4}
   m_EdgeRadius: 0
 --- !u!95 &1679752675
 Animator:
@@ -1690,8 +1690,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.798, y: -15.826}
-  m_SizeDelta: {x: 106.482, y: 63.506}
+  m_AnchoredPosition: {x: -1.5513, y: -3.1058}
+  m_SizeDelta: {x: 98.3292, y: 44.8955}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1806171542
 Animator:
@@ -1744,7 +1744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.49039906, g: 0.49039906, b: 0.49039906, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1853,6 +1853,22 @@ PrefabInstance:
     - target: {fileID: 2716069974273484316, guid: 1e3fbe7955c53574fbc99f0d4e77fe89, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449167596211404187, guid: 1e3fbe7955c53574fbc99f0d4e77fe89, type: 3}
+      propertyPath: m_BackGroundColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449167596211404187, guid: 1e3fbe7955c53574fbc99f0d4e77fe89, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449167596211404187, guid: 1e3fbe7955c53574fbc99f0d4e77fe89, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449167596211404187, guid: 1e3fbe7955c53574fbc99f0d4e77fe89, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
